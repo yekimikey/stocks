@@ -44,6 +44,11 @@
 			<artifactId>YahooFinanceAPI</artifactId>
 			<version>3.15.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.wordnik</groupId>
+			<artifactId>swagger-jersey2-jaxrs</artifactId>
+			<version>1.5.1-M1</version>
+		</dependency>
 
 	</dependencies>
 
