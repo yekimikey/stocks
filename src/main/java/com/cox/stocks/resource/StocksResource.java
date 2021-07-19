@@ -1,11 +1,10 @@
 package com.cox.stocks.resource;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.cox.stocks.data.WatchedStocks;
+import com.cox.stocks.data.WatchedStock;
 import com.cox.stocks.service.StocksService;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
@@ -28,7 +27,7 @@ public class StocksResource
     @Autowired
     StocksService stocksService;
 
-    Set<String> watchedStocksSet = new HashSet<String>();
+    Set<String> watchedStocksSymbolSet = new HashSet<String>();
 
 
     @ApiOperation(value="Retrieve stock information.")
@@ -52,6 +51,7 @@ public class StocksResource
         return ResponseEntity.status(HttpStatus.OK).body(stock);
     }
 
+
     @ApiOperation(value="Add stock to watched list.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = Integer.class),
@@ -59,14 +59,15 @@ public class StocksResource
     })
     @RequestMapping(value = {"add/watched/{stockValue}"}, method = RequestMethod.PUT)
     public ResponseEntity<String> addWatchedStock(@PathVariable("stockValue") String stockValue)
-    {//curl http://localhost:8080/resource/stocks/add/watched/ANGI
-        if(watchedStocksSet.add(stockValue) == false)
+    {//curl -X PUT http://localhost:8080/resource/stocks/add/watched/YELP
+        if(watchedStocksSymbolSet.add(stockValue) == false)
         {
             return ResponseEntity.status(HttpStatus.OK).body("Stock already being watched");
 
         }
         return ResponseEntity.status(HttpStatus.OK).body("Stock added to watched stock list");
     }
+
 
     @ApiOperation(value="Remove stock from watched list.")
     @ApiResponses(value = {
@@ -75,12 +76,27 @@ public class StocksResource
     })
     @RequestMapping(value = {"remove/watched/{stockValue}"}, method = RequestMethod.PUT)
     public ResponseEntity<String> removeWatchedStock(@PathVariable("stockValue") String stockValue)
-    {//curl http://localhost:8080/resource/stocks/remove/watched/ANGI
-        if(watchedStocksSet.remove(stockValue) == false)
+    {//curl http://localhost:8080/resource/stocks/remove/watched/YELP
+        if(watchedStocksSymbolSet.remove(stockValue) == false)
         {
             return ResponseEntity.status(HttpStatus.OK).body("Stock was not in the list");
         }
 
         return ResponseEntity.status(HttpStatus.OK).body("Stock removed from the watched stock list");
+    }
+
+
+    @ApiOperation(value="Retrieve stock information.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = Integer.class),
+            @ApiResponse(code = 500, message = "Unexpected error")
+    })
+    @RequestMapping(value = {"view/watched/stocks/current"}, method = RequestMethod.GET)
+    public ResponseEntity<List<WatchedStock>> viewWatchedStocks()
+    {
+
+        List<WatchedStock> watchedStocks = stocksService.retrieveCurrentStockData(watchedStocksSymbolSet);
+
+        return ResponseEntity.status(HttpStatus.OK).body(watchedStocks);
     }
 }
