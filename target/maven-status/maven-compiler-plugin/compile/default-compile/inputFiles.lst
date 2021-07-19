@@ -1,0 +1,5 @@
+/apps/stocks/src/main/java/com/cox/stocks/data/WatchedStock.java
+/apps/stocks/src/main/java/com/cox/stocks/resource/StocksResource.java
+/apps/stocks/src/main/java/com/cox/stocks/service/StocksService.java
+/apps/stocks/src/main/java/com/cox/stocks/data/WatchedStockHistorical.java
+/apps/stocks/src/main/java/com/cox/stocks/StocksApplication.java

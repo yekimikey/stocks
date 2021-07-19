@@ -29,29 +29,7 @@ public class StocksResource
     StocksService stocksService;
 
     Set<String> watchedStocksSymbolSet = new HashSet<String>();
-
-
-    @ApiOperation(value="Retrieve stock information.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = Integer.class),
-            @ApiResponse(code = 500, message = "Unexpected error")
-    })
-    @RequestMapping(value = {"retrieve/{stockValue}"}, method = RequestMethod.GET)
-    public ResponseEntity<Stock> retrieveStock(@PathVariable("stockValue") String stockValue)
-    {//curl http://localhost:8080/resource/stocks/retrieve/ANGI
-        Stock stock;
-        try
-        {
-            stock = YahooFinance.get(stockValue);
-        }
-        catch(IOException ex)
-        {
-            return null;//todo?
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(stock);
-    }
-
+    
 
     @ApiOperation(value="Add stock to watched list.")
     @ApiResponses(value = {

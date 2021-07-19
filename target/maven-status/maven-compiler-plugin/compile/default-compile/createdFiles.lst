@@ -1,0 +1,5 @@
+com/cox/stocks/data/WatchedStockHistorical.class
+com/cox/stocks/service/StocksService.class
+com/cox/stocks/data/WatchedStock.class
+com/cox/stocks/StocksApplication.class
+com/cox/stocks/resource/StocksResource.class
