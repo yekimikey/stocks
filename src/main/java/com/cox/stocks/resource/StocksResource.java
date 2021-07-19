@@ -1,5 +1,4 @@
 package com.cox.stocks.resource;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import yahoofinance.Stock;
-import yahoofinance.YahooFinance;
 
 @RestController
 @RequestMapping(value="resource/stocks")
@@ -29,7 +26,7 @@ public class StocksResource
     StocksService stocksService;
 
     Set<String> watchedStocksSymbolSet = new HashSet<String>();
-    
+
 
     @ApiOperation(value="Add stock to watched list.")
     @ApiResponses(value = {
