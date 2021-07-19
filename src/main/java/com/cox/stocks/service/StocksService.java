@@ -16,6 +16,11 @@ import java.util.Set;
 @Service
 public class StocksService {
 
+    /**
+     * This method is used to retrieve current stock information based upon the symbol values of certain watched stocks.
+     * @param watchedStocksSymbolSet A set of stock symbols being watched
+     * @return List<WatchedStock> A list containing information about the stock symbols being watched
+     */
     public List<WatchedStock> retrieveCurrentStockData(Set<String> watchedStocksSymbolSet)
     {
         List<WatchedStock> watchedStocksData = new ArrayList<>();
@@ -40,6 +45,11 @@ public class StocksService {
         return watchedStocksData;
     }
 
+    /**
+     * This method is used to retrieve historical stock information based upon the symbol values of certain watched stocks.
+     * @param watchedStocksSymbolSet A set of stock symbols being watched
+     * @return List<WatchedStockHistorical> A list containing information about the stock symbols being watched
+     */
     public List<WatchedStockHistorical> retrieveHistoricalStockData(Set<String> watchedStocksSymbolSet)
     {
         Calendar from = Calendar.getInstance();
@@ -79,6 +89,11 @@ public class StocksService {
         return watchedStocksData;
     }
 
+    /**
+     * This method is used to calculate the price for a stock over the time of the historical data provided
+     * @param stockHistorical This is historical stock quote data
+     * @return double Value representing the average stock value
+     */
     private double calculatePriceAverageForSpan(List<HistoricalQuote> stockHistorical)
     {
         double addedClosePrices = 0;
@@ -90,6 +105,11 @@ public class StocksService {
         return addedClosePrices/stockHistorical.size();
     }
 
+    /**
+     * This method is used to calculate the low price for a stock over the time of the historical data provided
+     * @param stockHistorical This is historical stock quote data
+     * @return double Value representing the low stock value
+     */
     private double calculatePriceLowForSpan(List<HistoricalQuote> stockHistorical)
     {
         double priceLow = stockHistorical.get(0).getLow().doubleValue();
@@ -103,6 +123,11 @@ public class StocksService {
         return priceLow;
     }
 
+    /**
+     * This method is used to calculate the high price for a stock over the time of the historical data provided
+     * @param stockHistorical This is historical stock quote data
+     * @return double Value representing the high stock value
+     */
     private double calculatePriceHighForSpan(List<HistoricalQuote> stockHistorical)
     {
         double priceHigh = stockHistorical.get(0).getHigh().doubleValue();
